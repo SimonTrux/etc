@@ -1,3 +1,8 @@
+#You can test that your local key works by entering 
+ssh -T git@github.com #in the terminal:
+
+#https://docs.github.com/en/developers/overview/using-ssh-agent-forwarding
+
 #You can check that your key is visible to ssh-agent by running the following command:
 
 ssh-add -L
