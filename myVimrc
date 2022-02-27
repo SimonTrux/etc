@@ -27,6 +27,49 @@ if empty(glob('~/.vim/autoload/plug.vim'))
 endif 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" PLUGINS SECTION 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+call plug#begin('~/.vim/plugged')
+
+Plug 'vim-utils/vim-man'				"View Manual in vim
+Plug 'drewtempelmeyer/palenight.vim' 	"Palenight theme
+
+" AIRLINE FOR LINUX : UNCOMMENT NEXT 4 LINES AND REMOVE NO PLUGIN STATUSLINE
+""""""""""""""""""""""
+"Plug 'vim-airline/vim-airline'
+"Plug 'vim-airline/vim-airline-themes'
+call plug#end()
+"let g:airline_theme='ayu_mirage'
+
+""""""""""""""""""""""
+" COLOR THEME
+""""""""""""""""""""""
+colorscheme palenight
+
+""""""""""""""""""""""
+" NO PLUGIN STATUSLINE
+""""""""""""""""""""""
+set laststatus=2
+set statusline=%f\ %l\|%c\ %m%=%p%%\ (%Y%R)
+
+" READ MANUAL FROM VIM
+"""""""""""""""""""""""
+" PASE NEXT LINE TO TERMINAL ONCE
+" vman() { vim -c "Man $1 $2" -c 'silent only' }
+
+" TESTING
+"""""""""""
+if (1) 
+	echo "Create vman"
+	"silent !/bin/sh vman()='{ vim -c "Man $1 $2" -c "silent only" }'
+	"let $vman() = '{ vim -c "Man $1 $2" -c "silent only" }'
+	"let $TESTES = 'hello'
+endif
+
+let $TESTES = 'hello'
+"silent exec '!vman() { vim -c "Man $1 $2" -c "silent only" }'
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " GENERAL
@@ -47,7 +90,7 @@ set shiftwidth=4
 " from Chewie vimrc
 set scrolloff=5
 "set showmode
-"set showcmd
+set showcmd
 set showmatch
 set cursorline
 
@@ -57,31 +100,6 @@ set clipboard=unnamedplus
 set wildmenu
 " Set completion behavior, see :help wildmode for details
 set wildmode=longest:full,list:full
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" PLUGIN SECTION 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-call plug#begin('~/.vim/plugged')
-Plug 'drewtempelmeyer/palenight.vim'
-
-"AIRLINE FOR LINUX 
-"Plug 'vim-airline/vim-airline'
-"Plug 'vim-airline/vim-airline-themes'
-call plug#end()
-"let g:airline_theme='ayu_mirage'
-
-""""""""""""""""""""""
-" COLOR THEME
-""""""""""""""""""""""
-colorscheme palenight
-
-""""""""""""""""""""""
-" NO PLUGIN STATUSLINE
-""""""""""""""""""""""
-
-set laststatus=2
-set statusline=%f\ %l\|%c\ %m%=%p%%\ (%Y%R)
 
 
 
