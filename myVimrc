@@ -1,10 +1,40 @@
-" GENERAL STUFF
+"  /\\\\\\\\\\\\\\\                                                                 
+"  \///////\\\/////                                                                 
+"         \/\\\                                                                     
+"          \/\\\        /\\/\\\\\\\   /\\\    /\\\  /\\\    /\\\                    
+"           \/\\\       \/\\\/////\\\ \/\\\   \/\\\ \///\\\/\\\/                    
+"            \/\\\       \/\\\   \///  \/\\\   \/\\\   \///\\\/                     
+"             \/\\\       \/\\\         \/\\\   \/\\\    /\\\/\\\                   
+"              \/\\\       \/\\\         \//\\\\\\\\\   /\\\/\///\\\                
+"               \///        \///           \/////////   \///    \///                
+"                                                                                   
+"                                                                                   
+"                        /\\\                                                       
+"           /\\\    /\\\ \///     /\\\\\  /\\\\\    /\\/\\\\\\\      /\\\\\\\\      
+"           \//\\\  /\\\   /\\\  /\\\///\\\\\///\\\ \/\\\/////\\\   /\\\//////      
+"             \//\\\/\\\   \/\\\ \/\\\ \//\\\  \/\\\ \/\\\   \///   /\\\            
+"               \//\\\\\    \/\\\ \/\\\  \/\\\  \/\\\ \/\\\         \//\\\          
+"         /\\\    \//\\\     \/\\\ \/\\\  \/\\\  \/\\\ \/\\\          \///\\\\\\\\  
+"         \///      \///      \///  \///   \///   \///  \///             \////////  
 
-syntax on 
+" Auto load / install plugin manager
+
+if !1 | finish | endif
+
+" auto-install vim-plug
+if empty(glob('~/.vim/autoload/plug.vim'))
+    echo "Installing VimPlug..."
+    silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+    autocmd VimEnter * PlugInstall
+endif 
+
+" GENERAL
 set mouse=a
+syntax on
 set paste
 set number
 
+" INDENTATION
 filetype plugin indent on
 set autoindent
 set tabstop=4
@@ -12,10 +42,9 @@ set shiftwidth=4
 
 " from Chewie vimrc
 set scrolloff=5
-set showmode
-set showcmd
-set laststatus=2
-set statusline=%f\ %l\|%c\ %m%=%p%%\ (%Y%R)
+"set showmode
+"set showcmd
+"set laststatus=2
 set showmatch
 set cursorline
 
@@ -23,36 +52,25 @@ set clipboard=unnamedplus
 
 " Enhannce command line completion
 set wildmenu
-
 " Set completion behavior, see :help wildmode for details
 set wildmode=longest:full,list:full
 
-"PLUGIN SECTION OF PALENIGHT 
+
+
+"PLUGIN SECTION 
 call plug#begin('~/.vim/plugged')
 Plug 'drewtempelmeyer/palenight.vim'
-call plug#end()
 
-"PALENIGHT CONFIG
+"AIRLINE FOR LINUX 
+"Plug 'vim-airline/vim-airline'
+"Plug 'vim-airline/vim-airline-themes'
+call plug#end()
+"let g:airline_theme='ayu_mirage'
+
+"COLOR THEME
 colorscheme palenight
 
-" OLD CONFIG FOR THEME : NO NEED ?
+" NO PLUGIN STATUSLINE
+set laststatus=2
 
-"set background=dark
-
-"let g:lightline = { 'colorscheme': 'palenight' }
-"let g:airline_theme = "palenight"
-"let g:palenight_terminal_italics=1
-
-"----TRUE COLORS
-"if (has("termguicolors"))
-"  set termguicolors
-"  endif
-
-" OLD HEADER FROM 42
-
-"		autocmd bufnewfile *.c so /Users/Simon/Documents/Programming/42/c_header.txt
-"		autocmd bufnewfile *.c exe "1," . 10 . "g/File Name :.*/s//File Name : " .expand("%")
-"		autocmd bufnewfile *.c exe "1," . 10 . "g/Creation Date :.*/s//Creation Date : " .strftime("%d-%m-%Y")
-"		autocmd Bufwritepre,filewritepre *.c execute "normal ma"
-"		autocmd Bufwritepre,filewritepre *.c exe "1," . 10 . "g/Last Modified :.*/s/Last Modified :.*/Last Modified : " .strftime("%c")
-"		autocmd bufwritepost,filewritepost *.c execute "normal `a"
+set statusline=%f\ %l\|%c\ %m%=%p%%\ (%Y%R)
