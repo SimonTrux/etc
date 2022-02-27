@@ -35,6 +35,8 @@ call plug#begin('~/.vim/plugged')
 
 Plug 'vim-utils/vim-man'				"View Manual in vim
 Plug 'drewtempelmeyer/palenight.vim' 	"Palenight theme
+Plug 'arcticicestudio/nord-vim'
+Plug 'itchyny/lightline.vim'
 
 " AIRLINE FOR LINUX : UNCOMMENT NEXT 4 LINES AND REMOVE NO PLUGIN STATUSLINE
 """"""""""""""""""""""
@@ -47,12 +49,16 @@ call plug#end()
 " COLOR THEME
 """"""""""""""""""""""
 colorscheme palenight
+"colorscheme nord
+let g:lightline = {
+	\ 'colorscheme': 'palenight',
+	\ }
 
 """"""""""""""""""""""
 " NO PLUGIN STATUSLINE
 """"""""""""""""""""""
 set laststatus=2
-set statusline=%f\ %l\|%c\ %m%=%p%%\ (%Y%R)
+"set statusline=%f\ %l\|%c\ %m%=%p%%\ (%Y%R)
 
 " READ MANUAL FROM VIM
 """""""""""""""""""""""
@@ -61,14 +67,14 @@ set statusline=%f\ %l\|%c\ %m%=%p%%\ (%Y%R)
 
 " TESTING
 """""""""""
-if (1) 
-	echo "Create vman"
+"if (1) 
+"	echo "Create vman"
 	"silent !/bin/sh vman()='{ vim -c "Man $1 $2" -c "silent only" }'
 	"let $vman() = '{ vim -c "Man $1 $2" -c "silent only" }'
 	"let $TESTES = 'hello'
-endif
+"endif
 
-let $TESTES = 'hello'
+"let $TESTES = 'hello'
 "silent exec '!vman() { vim -c "Man $1 $2" -c "silent only" }'
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -89,7 +95,7 @@ set shiftwidth=4
 
 " from Chewie vimrc
 set scrolloff=5
-"set showmode
+set noshowmode
 set showcmd
 set showmatch
 set cursorline
