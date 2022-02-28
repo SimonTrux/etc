@@ -1,15 +1,15 @@
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"	 ______   ______     __  __     __  __                    		"
-"	/\__  _\ /\  == \   /\ \/\ \   /\_\_\_\                   		"
-"	\/_/\ \/ \ \  __<   \ \ \_\ \  \/_/\_\/_                  		"
-"	   \ \_\  \ \_\ \_\  \ \_____\   /\_\/\_\                 		"
-"		\/_/   \/_/ /_/   \/_____/   \/_/\/_/                 		"
-"                                                          			"
-"              __   __   __     __    __     ______     ______    	"
-"        	  /\ \ / /  /\ \   /\ \-./  \   /\  == \   /\  ___\   	"
-"	    	  \ \ \'/   \ \ \  \ \ \-./\ \  \ \  __<   \ \ \____  	"
-"	    /\_\   \ \__|    \ \_\  \ \_\ \ \_\  \ \_\ \_\  \ \_____\ 	"
-" 	    \/_/    \/_/      \/_/   \/_/  \/_/   \/_/ /_/   \/_____/ 	"
+"	 ______   ______     __  __     __  __      					"
+"	/\__  _\ /\  == \   /\ \/\ \   /\_\_\_\     					"
+"	\/_/\ \/ \ \  __<   \ \ \_\ \  \/_/\_\/_    					"
+"	   \ \_\  \ \_\ \_\  \ \_____\   /\_\/\_\   					"
+"		\/_/   \/_/ /_/   \/_____/   \/_/\/_/   					"
+"																	"
+"			   __   __   __     __    __     ______     ______    	"
+"			  /\ \ / /  /\ \   /\ \-./  \   /\  == \   /\  ___\   	"
+"			  \ \ \'/   \ \ \  \ \ \-./\ \  \ \  __<   \ \ \____  	"
+"		/\_\   \ \__|    \ \_\  \ \_\ \ \_\  \ \_\ \_\  \ \_____\ 	"
+"		\/_/    \/_/      \/_/   \/_/  \/_/   \/_/ /_/   \/_____/ 	"
 "																	"
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -30,7 +30,6 @@ endif
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " PLUGINS SECTION 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
 call plug#begin('~/.vim/plugged')
 
 Plug 'vim-utils/vim-man'				"View Manual in vim
@@ -75,7 +74,7 @@ set laststatus=2
 "endif
 
 "let $TESTES = 'hello'
-"silent exec '!vman() { vim -c "Man $1 $2" -c "silent only" }'
+"let vman() { vim -c "Man $1 $2" -c "silent only" }
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " GENERAL
@@ -83,12 +82,13 @@ set laststatus=2
 
 set mouse=a
 syntax on
-set paste
+set nopaste
 set number
 
 " INDENTATION
 """"""""""""""""""""""
 filetype plugin indent on
+filetype indent on
 set autoindent
 set tabstop=4
 set shiftwidth=4
@@ -100,12 +100,28 @@ set showcmd
 set showmatch
 set cursorline
 
+setlocal list
+set listchars=tab:>~,trail:.
+
 set clipboard=unnamedplus
+
 
 " Enhannce command line completion
 set wildmenu
 " Set completion behavior, see :help wildmode for details
 set wildmode=longest:full,list:full
 
+" Brackets Completion :
+inoremap ( ()<Left>
+inoremap [ []<Left>
+inoremap { {}<Left>
+inoremap ' ''<Left>
+inoremap " ""<Left>
+inoremap ` ``<Left>
 
+inoremap <expr> <CR> search('{\%#}', 'n') ? "\<CR>\<CR>\<Up>\<C-f>" : "\<CR>"
 
+""----TRUE COLORS
+"if (has("termguicolors"))
+"  set termguicolors
+"endif
