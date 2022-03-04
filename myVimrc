@@ -13,42 +13,87 @@
 "																	"
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
+" Welcome to my .vimrc ! It's still a work in progress, I tried to
+" make it easy to understand.
+" There are :   General settings / Identation / Completion
+"				Explorer / Plugins / Theme / Statusbar
+"																Trux
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Auto load / install plugin manager
+"		GENERAL SETTINGS
+""""""""""""""""""""""""""""""""""""""""
+syntax on
+set number
+set mouse=a
+set nopaste
+set noshowmode
+set showcmd
+set cursorline
+set scrolloff=5		" keep x lines above / before cursor
+set showmatch		" show matching (){}[]
+" Clipboard=unnamedplus : Yank to system clipboard with "+y
+" and Paste from it with "+p if vim --version got +clipboard or +xtermclipboard
+set clipboard=unnamedplus
 
-if !1 | finish | endif
+"	Indentation
+""""""""""""""""""""""""""""""""""""""""
+filetype plugin indent on
+set autoindent
+set tabstop=4
+set shiftwidth=4
 
-" auto-install vim-plug
+setlocal list 		"Necessary for next line
+set listchars=tab:\│\ ,trail:-,extends:>,precedes:<,nbsp:+
+"highlight TabLineSel ctermfg=blue ctermbg=black "WIP
+
+" : WILDMENU : Enhannce command line completion
+set wildmenu
+set wildmode=longest:full,list:full " Set completion behavior, see :help wildmode
+
+"	Brackets Auto Completion :
+""""""""""""""""""""""""""""""""""""""""
+inoremap ( ()<Left>
+inoremap [ []<Left>
+inoremap { {}<Left>
+inoremap ' ''<Left>
+inoremap " ""<Left>
+inoremap ` ``<Left>
+inoremap <expr> <CR> search('{\%#}', 'n') ? "\<CR>\<CR>\<Up>\<C-f>" : "\<CR>"
+
+"	Custom Explorer with :Vex
+""""""""""""""""""""""""""""""""""""""""
+let g:netrw_winsize = 25	"Vex will be 25% window size
+let g:netrw_liststyle = 3	"Tree style display
+let g:netrw_banner = 0		"No Banner
+"	Browse_split : 1 new hsp 2 new vsp 3 new tab 4 previous window
+let g:netrw_browse_split = 4
+
+
+"		PLUGINS SECTION
+""""""""""""""""""""""""""""""""""""""""
+"	auto load / install pluging manager : vim-plug
+""""""""""""""""""""""""""""""""""""""""
+if !1 | finish | endif    " I still dont get that line....
 if empty(glob('~/.vim/autoload/plug.vim'))
 	echo "Installing VimPlug..."
 	silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 	autocmd VimEnter * PlugInstall
 endif 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" PLUGINS SECTION
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"	Plugins List
+""""""""""""""""""""""""""""""""""""""""
 call plug#begin('~/.vim/plugged')
-
 Plug 'vim-utils/vim-man'				"View Manual in vim
 Plug 'drewtempelmeyer/palenight.vim'	"Palenight theme
-Plug 'arcticicestudio/nord-vim'
 Plug 'itchyny/lightline.vim'
-
-" AIRLINE FOR LINUX : UNCOMMENT NEXT 4 LINES AND REMOVE NO PLUGIN STATUSLINE
-""""""""""""""""""""""
-"Plug 'vim-airline/vim-airline'
-"Plug 'vim-airline/vim-airline-themes'
 call plug#end()
-"let g:airline_theme='ayu_mirage'
 
-""""""""""""""""""""""
-" COLOR THEME
-""""""""""""""""""""""
+"	Color Theme
+""""""""""""""""""""""""""""""""""""""""
 colorscheme palenight
 
+"	Status Line
+""""""""""""""""""""""""""""""""""""""""
+set laststatus=2
 let g:lightline = {
 	\ 'colorscheme': 'palenight',
 	\ 'active': {
@@ -56,84 +101,7 @@ let g:lightline = {
 	\ }
 	\ }
 
-set colorcolumn=80
-"set textwidth=80
-
-
-" EXPLORER CUSTOM : with Vex "
-let g:netrw_winsize = 25
-let g:netrw_liststyle = 3  "tree style
-let g:netrw_banner = 0  "Enlever la banniere
-" BROWSE SPLIT : 1 new hsp 2 new vsp 3 new tab 4 previous window
-let g:netrw_browse_split = 4
-""""""""""""""""""""""
-" NO PLUGIN STATUSLINE
-""""""""""""""""""""""
-set laststatus=2
-"set statusline=%f\ %l\|%c\ %m%=%p%%\ (%Y%R)
-
-" READ MANUAL FROM VIM
-"""""""""""""""""""""""
-" PASE NEXT LINE TO TERMINAL ONCE
+"	Read manual from vim
+""""""""""""""""""""""""""""""""""""""""
+"	Paste next line to terminal once (or in .bashrc)
 " vman() { vim -c "Man $1 $2" -c 'silent only' }
-
-" TESTING
-"""""""""""
-"if (1) 
-"	echo "Create vman"
-	"silent !/bin/sh vman()='{ vim -c "Man $1 $2" -c "silent only" }'
-	"let $vman() = '{ vim -c "Man $1 $2" -c "silent only" }'
-	"let $TESTES = 'hello'
-"endif
-
-"let $TESTES = 'hello'
-"let vman() { vim -c "Man $1 $2" -c "silent only" }
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" GENERAL
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-set mouse=a
-syntax on
-set nopaste
-set number
-
-" INDENTATION
-""""""""""""""""""""""
-filetype plugin indent on
-filetype indent on
-set autoindent
-set tabstop=4
-set shiftwidth=4
-
-" from Chewie vimrc
-set scrolloff=5
-set noshowmode
-set showcmd
-set showmatch
-set cursorline
-
-setlocal list
-""set listchars=tab:>~,trail:.
-set listchars=tab:\│\ ,trail:-,extends:>,precedes:<,nbsp:+
-set clipboard=unnamedplus
-
-" Enhannce command line completion
-set wildmenu
-" Set completion behavior, see :help wildmode for details
-set wildmode=longest:full,list:full
-
-" Brackets Completion :
-inoremap ( ()<Left>
-inoremap [ []<Left>
-inoremap { {}<Left>
-inoremap ' ''<Left>
-inoremap " ""<Left>
-inoremap ` ``<Left>
-
-inoremap <expr> <CR> search('{\%#}', 'n') ? "\<CR>\<CR>\<Up>\<C-f>" : "\<CR>"
-
-""----TRUE COLORS
-"if (has("termguicolors"))
-"  set termguicolors
-"endif
