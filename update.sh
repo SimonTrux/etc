@@ -7,3 +7,4 @@ echo "Enter git commit comment :"
 read comment
 #echo "Commit comment is : $comment"
 git commit -m "$comment"
+git push
