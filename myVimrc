@@ -59,19 +59,52 @@ inoremap " ""<Left>
 inoremap ` ``<Left>
 inoremap <expr> <CR> search('{\%#}', 'n') ? "\<CR>\<CR>\<Up>\<C-f>" : "\<CR>"
 
-"	Custom Explorer with :Vex
+"Custom Explorer with :Vex
 """"""""""""""""""""""""""""""""""""""""
-let g:netrw_winsize = 25	"Vex will be 25% window size
-let g:netrw_liststyle = 3	"Tree style display
-let g:netrw_banner = 0		"No Banner
-"	Browse_split : 1 new hsp 2 new vsp 3 new tab 4 previous window
+let g:netrw_winsize = 20"Vex will be 25% window size
+let g:netrw_liststyle = 3"Tree style display
+let g:netrw_banner = 0"No Banner
+"Browse_split : 1 new hsp 2 new vsp 3 new tab 4 previous window
 let g:netrw_browse_split = 4
 let g:netrw_list_hide = '^\..*/$' "Hide .directories/
 let g:netrw_hide = 1
+"let 
 
-"	Custom Ex Commands :
+" Make explorer netrw close if alone
+"aug netrw_close
+"  au!
+"    au WinEnter * if winnr('$') == 1 && getbufvar(winbufnr(winnr()), "&filetype") == "netrw"|q|endif
+"    aug END
+
+
+"Custom Ex Commands :
 """"""""""""""""""""""""""""""""""""""""
+set splitbelow
+"set termwinsize=25
 command Vscode :Vex :Hex
+" wid = win_getit() " => set focus where you want
+"autocmd VimEnter * let wid = win_getid()
+" call win_gotoid(wid) " => to go back to that focus
+"autocmd VimEnter * call win_gotoid(wid)
+
+autocmd VimEnter * let wid = win_getid()
+autocmd VimEnter * Vex
+autocmd VimEnter * call win_gotoid(wid)
+autocmd VimEnter * let wid = win_getid()
+set termwinsize=10*0  ""row*colomn, will be size of window or at least that.
+"autocmd VimEnter * terminal
+autocmd VimEnter * call win_gotoid(wid)
+
+""" Tentative d'ouverture de l'explorer on a new tab
+"autocmd TabNew * let wid = win_getid()
+autocmd TabNew * Vex
+autocmd TabNew * wincmd r
+"" Used to resize 
+autocmd TabNew * exec 'vertical resize '. string(&columns * 0.80)
+
+"autocmd VimEnter * wincmd k " to do a CTRL-W k 
+
+
 
 "		PLUGINS SECTION
 """"""""""""""""""""""""""""""""""""""""
@@ -128,3 +161,29 @@ let g:lightline = {
 """"""""""""""""""""""""""""""""""""""""
 "	Paste next line to terminal once (or in .bashrc)
 " vman() { vim -c "Man $1 $2" -c 'silent only' }
+
+
+"abbreviation !! 
+abbr _sh #!/bin/bash
+
+au! BufNewFile,BufReadPost *.{yaml,yml} set filetype=yaml "foldmethod=indent
+""autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab}
+autocmd FileType yaml setlocal ai et ts=2 sw=2 cuc cul
+
+
+
+" NEW SECTION trux 21/04/2023
+
+" Search incrementally
+set incsearch
+" enable line wrapping
+set wrap
+" avoid wrapping a line in the middle of a word
+set linebreak
+
+set background=dark
+
+colorscheme palenight
+
+set splitbelow
+set splitright
